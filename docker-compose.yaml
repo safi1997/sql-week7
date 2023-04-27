@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  mysql-fishy:
+    container_name: mysql-fishy
+    image: mysql
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=hicoders_12
+      - MYSQL_PASSWORD=hicoders_12
+      - MYSQL_USER=hicoders
+      - MYSQL_DATABASE=fishy
+    volumes:
+      - ./mysqlDB:/var/lib/meinsql/data
+  phpmyadmin-fishy:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma-fishy
+    depends_on:
+      - mysql-fishy
+    environment:
+      PMA_HOST: mysql-fishy
+    restart: always
+    ports:
+      - 8080:80
